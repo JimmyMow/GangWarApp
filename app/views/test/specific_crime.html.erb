@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+
+function initialize() {
+  var myLatlng = new google.maps.LatLng(<%= @crime.latitude %>,<%= @crime.longitude %>);
+  var mapOptions = {
+    zoom: 13,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<p><b><%= @crime.description %></b> was the crime committed on <b><%= @crime.date %></b>.' +
+      'The crime is (roughly) the <%= @crime.id %> crime of the year.'+
+      ' It was committed on <%= @crime.block %>. '+
+      'The location of the crime was a  <%= @crime.location_description %>. '+
+      '</p>'+
+      '<p>For more information on how you can help stop crime in our city: <a id="help"href="http://spotcrime.com/il/chicago">' + 'http://spotcrime.com/il/chicago</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: '<%= @crime.description %>'
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <div id="map_wrapper">
+    <div id="map_canvas" class="mapping"></div>
+</div>
+  </body>
+</html>

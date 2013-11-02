@@ -1,0 +1,30 @@
+<div id='home-page'>
+  <nav>
+    <h1>Crimes 2013 Chicago</h1>
+  </nav>
+
+  <ul>
+  <!--   <% @crimes.each do |crime| %>
+      <li><%= link_to crime.description, specific_crime_url(crime.id) %></li>
+    <% end %> -->
+  <button class='button-link'><%= link_to 'All Crimes', all_crimes_url %></button>
+
+  </ul>
+
+<form id='form' action= <%= root_url %>>
+  <label for="description">Crime Type:</label>
+  <input id="description" type="text" name="description">
+  <br>
+  <label for="number">Result Number:</label>
+  <input id="number" type="text" name="number">
+  <br>
+  <input type="submit">
+</form>
+<div id='results'>
+<ul>
+<% @find.each do |crime| %>
+<li><%= link_to "#{crime.description} (#{crime.block})", specific_crime_url(crime.id), :class => 'search' %></li>
+<% end %>
+</ul>
+</div>
+</div>
