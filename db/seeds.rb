@@ -1,9 +1,6 @@
 require 'open-uri'
 require 'json'
 
-require 'open-uri'
-require 'json'
-
 def chicago_crime
   url_string = open('http://data.cityofchicago.org/resource/ijzp-q8t2.json').read
   array = JSON.parse(url_string)
